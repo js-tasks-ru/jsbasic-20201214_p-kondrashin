@@ -4,10 +4,12 @@
  * @returns {number}
  */
 function factorial(n) {
-  let x=1;
+  let result = 1;
+
   for (let i = 1; i <= n; i++) {
-    x *= i;
+    result *= i;
   }
-  return x
+
+  return result
 }
 

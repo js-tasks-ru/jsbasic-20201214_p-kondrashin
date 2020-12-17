@@ -5,12 +5,17 @@
  */
 
 function sumSalary(salaries) {
-  let sum = 0;
+  let sumOfSalaries = 0;
     
   for (let key in salaries) {
-    if (typeof salaries[key] == "number") {
-      sum += salaries[key] 
+    if (typeof salaries[key] == "number" && isNaN(salaries[key]) == false && isFinite(salaries[key]) == true) {
+
+      sumOfSalaries += salaries[key]
+       
     }  
   }
-  return sum
+
+  return sumOfSalaries
 }
+
+
