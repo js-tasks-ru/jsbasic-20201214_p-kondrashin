@@ -17,7 +17,7 @@ function sumSalary(salaries) {
     
   for (let key in salaries) {
     
-    if (typeof salaries[key] == "number") {
+    if (typeof salaries[key] == "number" && isNaN(salaries[key]) == false && isFinite(salaries[key]) == true) {
       
       sumOfSalaries += salaries[key]; 
     } 
@@ -27,5 +27,4 @@ function sumSalary(salaries) {
   return sumOfSalaries
 }
 
-console.log(sumSalary(salarie));
 
