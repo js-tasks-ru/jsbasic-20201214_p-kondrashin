@@ -6,17 +6,11 @@
  */
 function truncate(str, maxlength) {
 
-  let trunStr;
-
   if(str.length > maxlength) {
     
-    trunStr  = str.substring(0, maxlength-1);
-    trunStr += "…";
-
-    return trunStr
+    return `${str.substring(0, maxlength-1)}…`;
   }
-  else {
-    return str
-  }
+  
+  return str
 }
 

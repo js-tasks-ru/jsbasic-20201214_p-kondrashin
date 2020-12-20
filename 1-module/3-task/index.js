@@ -5,16 +5,10 @@
  */
 function ucFirst(str) {
 
-  let result;
-  if (str == 0 || str == " ") {
-     return str
- }
+   if (!str) {
+      return str
+   }
 
- result = str[0].toUpperCase(); 
+   return str[0].toUpperCase() + str.slice(1)
 
- for(let i = 1; i < str.length;i++) {
-     result += str[i];
- }
-
- return result
 }

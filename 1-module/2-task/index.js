@@ -10,13 +10,12 @@ function print(text) {
  * чтобы функция sayHello работала корректно
  */
 function isValid(name) {
-  for (let key of name) {
-    if(key == " ") {
-      return false
-    }
+  
+  if(name.includes(' ')) {
+    return false
   }
 
-  if (name == 0 || name.length < 4) {
+  if (!name || name.length < 4) {
     return false
   }
 
