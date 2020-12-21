@@ -4,5 +4,16 @@
  * @returns {Boolean}
  */
 function isEmpty(obj) {
-  // ваш код...
+  
+  let i = 0;
+
+    for (const key in obj) {
+      i++;
+
+      if (i > 0) {
+        return false
+      }
+    }
+
+  return true;
 }
