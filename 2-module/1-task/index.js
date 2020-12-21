@@ -3,16 +3,20 @@
  * @param {Object} salaries - объект зарплат
  * @returns {Number}
  */
+
 function sumSalary(salaries) {
   let sumOfSalaries = 0;
-
+    
   for (let key in salaries) {
-    let isSalary = typeof salaries[key] === 'number';
+    
+    if (typeof salaries[key] == "number" && !isNaN(salaries[key]) && isFinite(salaries[key])) {
+      
+      sumOfSalaries += salaries[key]; 
+    } 
 
-    if (isSalary) {
-      sumOfSalaries += salaries[key];
-    }
   }
 
-  return sumOfSalaries;
+  return sumOfSalaries
 }
+
+
