@@ -9,7 +9,7 @@ let salarie = {
   Pete: 1300,
   month: 'December',
   currency: 'USD',
-  isPayed: NaN 
+  isPayed: false 
 }
 
 function sumSalary(salaries) {
@@ -17,7 +17,7 @@ function sumSalary(salaries) {
     
   for (let key in salaries) {
     
-    if (typeof salaries[key] == "number" && isNaN(salaries[key]) == false && isFinite(salaries[key]) == true) {
+    if (typeof salaries[key] == "number" && !isNaN(salaries[key]) && isFinite(salaries[key])) {
       
       sumOfSalaries += salaries[key]; 
     } 
