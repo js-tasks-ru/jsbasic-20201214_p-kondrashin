@@ -3,17 +3,14 @@
  * @param {Object} obj
  * @returns {Boolean}
  */
+
 function isEmpty(obj) {
-  
-  let i = 0;
 
-    for (const key in obj) {
-      i++;
+  for(let key in obj) {
+    return false
+  }
 
-      if (i > 0) {
-        return false
-      }
-    }
+  return true    
+}   
 
-  return true;
-}
+
