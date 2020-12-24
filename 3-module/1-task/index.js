@@ -3,5 +3,5 @@
  * @returns {string[]}  объект
  */
 function namify(users) {
-  return users.map(elem => elem.name)
+return users.map(({name}) => name)
 }
