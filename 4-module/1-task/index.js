@@ -3,6 +3,17 @@
  * @param {Object[]} friends
  * @return {HTMLUListElement}
  */
+
 function makeFriendsList(friends) {
-  // ваш код...
+  let friendsList = '';
+
+  friends.forEach(
+      ({firstName,lastName}) => friendsList += `<li>${firstName} ${lastName}</li>`
+    );
+
+  let ul = document.createElement('ul');
+  ul.innerHTML = friendsList;
+
+  return ul 
 }
+
