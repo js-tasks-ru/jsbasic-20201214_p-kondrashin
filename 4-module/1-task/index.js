@@ -7,12 +7,14 @@
 function makeFriendsList(friends) {
   let friendsList = '';
 
-  function friendElementTemplate({firstName,lastName} = {}) {
-    return friendsList += `<li>${firstName} ${lastName}</li>`
+  function friendElementTemplate(firstName,lastName) {
+    return `<li>${firstName} ${lastName}</li>`
   }
 
   friends.forEach(
-      ({firstName,lastName}) => friendElementTemplate({firstName,lastName})
+      ({firstName,lastName}) => {
+        friendsList += friendElementTemplate(firstName,lastName)
+      }
   );
 
   let ul = document.createElement('ul');
