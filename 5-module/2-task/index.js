@@ -7,7 +7,7 @@ function toggleText() {
       text.hidden = true
     } 
     else {
-        text.hidden = false
+      text.hidden = false
     }
   }
 
