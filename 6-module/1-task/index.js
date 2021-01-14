@@ -32,6 +32,7 @@ export default class UserTable {
   constructor(rows) {
       this.rows = rows;
       this.elem = this.render();
+      this.destroy()
   }
 
   render() { 
@@ -66,14 +67,13 @@ export default class UserTable {
 
     let table = document.createElement('table');
     table.innerHTML = template(cells);
-
     return table 
   }
   
   destroy() {
     let tr = this.elem.querySelectorAll('tr');
-    tr.forEach(elem => elem.addEventListener('click', function(item) {
-      if(item.target.tagName != 'BUTTON') return
+    tr.forEach(elem => elem.addEventListener('click', function(event) {
+      if(event.target.tagName != 'BUTTON') return
       elem.remove()
     }))
   }
