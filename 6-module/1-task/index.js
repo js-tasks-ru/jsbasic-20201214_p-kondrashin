@@ -28,30 +28,11 @@
  *
  * @constructor
  */
-export default class UserTable {
-  constructor(rows) {
-      this.rows = rows;
-      this.elem = this.render();
-      this.destroy()
-  }
 
-  render() { 
-    let cells = '';
+function createElementTable(data) {
+  let cells = '';
 
-    this.rows.forEach(elem => makeTempateCells(elem));
-
-    function makeTempateCells({name, age, salary, city} = {elem}){
-        cells += `<tr>
-          <td>${name}</td>
-          <td>${age}</td>
-          <td>${salary}</td>
-          <td>${city}</td>
-          <td><button>X</button></td>
-        </tr>`
-
-    } 
-
-    const template = function makeTemplateTable(string) {
+  function makeTemplateTable(string) {
       return `<table>
                 <thead>
                   <tr>
@@ -63,20 +44,40 @@ export default class UserTable {
                 </thead>
                 <tbody>${string}</tbody>
               </table>`
-    }
+  } 
 
-    let table = document.createElement('table');
-    table.innerHTML = template(cells);
-    return table 
-  }
+  function makeTemplateCells({name, age, salary, city} = {elem}){
+    cells += `<tr>
+      <td>${name}</td>
+      <td>${age}</td>
+      <td>${salary}</td>
+      <td>${city}</td>
+      <td><button>X</button></td>
+    </tr>`
+  } 
+
+  data.forEach(elem => makeTemplateCells(elem)); 
+
+  let table = document.createElement('table');
+  table.innerHTML = makeTemplateTable(cells);
+
+  return table 
+}
+
+
+export default class UserTable {
+  constructor(rows) {
+      this.rows = rows;
+      this.elem = createElementTable(this.rows);
+      this.remove()
+  } 
   
-  destroy() {
+  remove() {
     let tr = this.elem.querySelectorAll('tr');
     tr.forEach(elem => elem.addEventListener('click', function(event) {
       if(event.target.tagName != 'BUTTON') return
       elem.remove()
     }))
   }
-
 }
 
