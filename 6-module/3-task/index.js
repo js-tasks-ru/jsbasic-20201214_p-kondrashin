@@ -49,18 +49,14 @@ export default class Carousel {
       container = this.elem.querySelector('.carousel__inner'),
       rightArrow = this.elem.querySelector('.carousel__arrow_right'),
       leftArrow = this.elem.querySelector('.carousel__arrow_left'),
-      
       amountSlides = [...this.elements].length;
 
-
-
-    let containerWidth = 0,
-    containerOffsetWidth = 500;
+    let containerWidth = 0;
       
     leftArrow.style.display = 'none';
 
     function arrowOff (width) {
-      if (width == (- containerOffsetWidth * (amountSlides-1))) {
+      if (width == (- container.offsetWidth * (amountSlides-1))) {
           rightArrow.style.display = 'none';
       }
       else {
@@ -80,13 +76,13 @@ export default class Carousel {
     }
   
     function slideRight () {
-      containerWidth -=containerOffsetWidth;  
+      containerWidth -=container.offsetWidth;  
       arrowOff(containerWidth);
       changeSlides(containerWidth);
     }
   
     function slideLeft () {
-      containerWidth +=containerOffsetWidth;
+      containerWidth +=container.offsetWidth;
       arrowOff(containerWidth);
       changeSlides(containerWidth);
     }
@@ -97,13 +93,13 @@ export default class Carousel {
 
   addevent() {
     let slides = this.elements,
-      event = '',
+      events = '',
       item = this.elem;
 
     slides.forEach(elem => elem.addEventListener('click', function(event) {
       if(event.target.parentElement.tagName != 'BUTTON' && event.target.tagName != 'BUTTON') return
-      event = new CustomEvent("product-add", {detail: this.dataset.id, bubbles: true});
-      item.elem.dispatchEvent(event);
+        events = new CustomEvent("product-add", {detail: this.dataset.id, bubbles: true});
+        item.dispatchEvent(events);
     }))
   }
 

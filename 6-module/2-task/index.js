@@ -1,6 +1,7 @@
 import createElement from '../../assets/lib/create-element.js';
 
 function makeLayout({name,image,price}) {
+
   return `
         <div class="card">
           <div class="card__top">
@@ -13,12 +14,13 @@ function makeLayout({name,image,price}) {
                   <img src="/assets/images/icons/plus-icon.svg" alt="icon">
               </button>
           </div>
-        </div>`
+        </div>`;
 }
 
 export default class ProductCard {
   constructor(product) {
     this.product = product;
+    this.id = product.id;
     this.elem = createElement(makeLayout(this.product));
     this.button = this.elem.querySelector('.card__button');
     this.addEvent();

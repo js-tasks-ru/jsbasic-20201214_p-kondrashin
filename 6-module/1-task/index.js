@@ -77,7 +77,7 @@ export default class UserTable {
     tr.forEach(elem => elem.addEventListener('click', function(event) {
       if(event.target.tagName != 'BUTTON') return
       elem.remove()
-    }))
+    }));
   }
 }
 
