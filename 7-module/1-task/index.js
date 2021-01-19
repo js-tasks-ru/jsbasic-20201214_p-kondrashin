@@ -37,6 +37,6 @@ export default class RibbonMenu {
 
   scroll() {
     console.log(this.container);
-    this.container.scrollBy(700,0); 
+    this.container.scrollBy(700,0); // Почему это метод не отрабатывает?
   }
 }
