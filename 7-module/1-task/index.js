@@ -25,18 +25,61 @@ function makeLayout(data) {
 
   return makeLayoutElement(layoutItems)
 }
-// let menu = document.querySelector('.ribbon__inner').scrollBy(350, 0)
 
 export default class RibbonMenu {
   constructor(categories) {
     this.categories = categories;
-    this.elem = createElement(makeLayout(this.categories));
-    this.container = this.elem.querySelector('.ribbon__inner');
-    this.scroll()
+    this.elem = createElement(makeLayout(this.categories)); 
+    this.initmenu();
   }
 
-  scroll() {
-    console.log(this.container);
-    this.container.scrollBy(700,0); // Почему это метод не отрабатывает?
+  initmenu() { 
+    const 
+      container = this.elem.querySelector('.ribbon__inner'),
+      rightButton = this.elem.querySelector('.ribbon__arrow_right'),
+      leftButton = this.elem.querySelector('.ribbon__arrow_left');
+
+    let 
+      counter = 0,
+      scrollLeftWidth = 0,
+      scrollRightWidth = 0;
+
+    function buttonOff() {
+      scrollLeftWidth = container.scrollLeft;
+      scrollRightWidth = container.scrollWidth - scrollLeftWidth - container.clientWidth;
+
+      if (scrollRightWidth > 0) {
+        leftButton.classList.add('ribbon__arrow_visible');
+      }
+      else if (scrollRightWidth == 0) {
+        rightButton.classList.remove('ribbon__arrow_visible');
+      }
+
+      if (scrollLeftWidth == 0) {
+        leftButton.classList.remove('ribbon__arrow_visible');
+        rightButton.classList.add('ribbon__arrow_visible');
+      }
+    }
+
+    function scrollMenu (count) {
+      buttonOff();
+      container.scrollBy(count,0)
+    }
+
+    function scrollRight() {
+      counter += 350;
+      scrollMenu(counter);
+      counter = 0;
+    }
+
+    function scrollleft() {
+      counter -= 350;
+      scrollMenu(counter);
+      counter = 0;
+    }
+    
+    rightButton.addEventListener('click', scrollRight);
+    leftButton.addEventListener('click', scrollleft);
   }
+
 }
