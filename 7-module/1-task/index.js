@@ -30,7 +30,9 @@ export default class RibbonMenu {
   constructor(categories) {
     this.categories = categories;
     this.elem = createElement(makeLayout(this.categories)); 
+    this.items = this.elem.querySelectorAll('.ribbon__item');
     this.initmenu();
+    this.addevent();
   }
 
   initmenu() { 
@@ -48,17 +50,19 @@ export default class RibbonMenu {
       scrollLeftWidth = container.scrollLeft;
       scrollRightWidth = container.scrollWidth - scrollLeftWidth - container.clientWidth;
 
-      if (scrollRightWidth > 0) {
-        leftButton.classList.add('ribbon__arrow_visible');
-      }
-      else if (scrollRightWidth == 0) {
+      if (scrollRightWidth == 0) {
         rightButton.classList.remove('ribbon__arrow_visible');
       }
 
-      if (scrollLeftWidth == 0) {
+      if (scrollLeftWidth == 0 && scrollRightWidth > 0) {
         leftButton.classList.remove('ribbon__arrow_visible');
+      }
+      
+      if (scrollRightWidth > 0 && scrollLeftWidth > 0) {
+        leftButton.classList.add('ribbon__arrow_visible');
         rightButton.classList.add('ribbon__arrow_visible');
       }
+  
     }
 
     function scrollMenu (count) {
@@ -82,4 +86,23 @@ export default class RibbonMenu {
     leftButton.addEventListener('click', scrollleft);
   }
 
+  addevent() {
+    let 
+      items = this.items,
+      event,
+      elem = this.elem;
+
+    items.forEach((elem) => {
+      elem.addEventListener('click', function () {
+        items.forEach(elem => elem.classList.remove('ribbon__item_active'));
+        this.classList.add('ribbon__item_active');
+        event = new CustomEvent("ribbon-select", {detail: this.dataset.id, bubbles: true});
+        elem.dispatchEvent(event);
+      })
+    });
+
+  }
+ 
 }
+
+
