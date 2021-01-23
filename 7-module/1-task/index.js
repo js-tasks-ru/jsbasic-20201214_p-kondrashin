@@ -94,10 +94,11 @@ export default class RibbonMenu {
 
     items.forEach((elem) => {
       elem.addEventListener('click', function () {
-        items.forEach(elem => elem.classList.remove('ribbon__item_active'));
-        this.classList.add('ribbon__item_active');
-        event = new CustomEvent("ribbon-select", {detail: this.dataset.id, bubbles: true});
-        elem.dispatchEvent(event);
+        items.forEach(elem => 
+          elem.classList.remove('ribbon__item_active'));
+          this.classList.add('ribbon__item_active');
+          event = new CustomEvent("ribbon-select", {detail: this.dataset.id, bubbles: true});
+          elem.dispatchEvent(event);
       })
     });
 
