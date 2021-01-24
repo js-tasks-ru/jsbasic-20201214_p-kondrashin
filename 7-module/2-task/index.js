@@ -6,7 +6,6 @@ function makeLayout () {
   <div class="modal">
     <!--Прозрачная подложка перекрывающая интерфейс-->
     <div class="modal__overlay"></div>
-
     <div class="modal__inner">
       <div class="modal__header">
         <!--Кнопка закрытия модального окна-->
@@ -28,49 +27,42 @@ function makeLayout () {
 
 export default class Modal {
   constructor() {
-  }
-  
-  setTitle(ModalTitle) {
-    this.title = ModalTitle;
-  }
-
-  setBody(node) {
-    this.node = node;
+    this.elem = createElement(makeLayout());
+    this.buttonClose();
+    this.escclose();
   }
   
   open() {
-    const div = document.createElement('div')
-    div.innerHTML = makeLayout()
-    document.body.append(div)
+    document.body.append(this.elem)
     document.body.classList.add('is-modal-open');
-
-    let body = document.querySelector('.modal__body');
-    body.innerHTML = '';
-    body.append(this.node);
-
-    let title = document.querySelector('.modal__title');
-    title.textContent = this.title;
-
-    function buttonClosed() {
-      document.body.classList.remove('is-modal-open');
-      let modal = document.querySelector('.modal');
-      modal.remove()
-    }
-
-    function escClosed(event) {
-      if(event.code != 'Escape') return
-      buttonClosed();
-    }
-
-    const buttonClose = document.querySelector('.modal__close');
-    buttonClose.addEventListener('click', buttonClosed);
-    document.addEventListener('keydown', escClosed);
-
   }
 
   close() {
-    buttonClosed();
+    document.body.classList.remove('is-modal-open');
+    let modal = document.querySelector('.modal');
+    modal.remove();
   }
 
+  setTitle(ModalTitle) {
+    let title = this.elem.querySelector('.modal__title');
+    title.textContent = ModalTitle;
+  }
 
+  setBody(node) {
+    let body = this.elem.querySelector('.modal__body');
+    body.innerHTML = '';
+    body.append(node);
+  }
+
+  buttonClose() {
+    const buttonClose = this.elem.querySelector('.modal__close');
+    buttonClose.addEventListener('click', this.close);
+  }
+
+  escclose() {
+    document.addEventListener('keydown', function(event) {
+      if(event.code != 'Escape') return
+      console.log('esc');
+    })
+  }
 }
