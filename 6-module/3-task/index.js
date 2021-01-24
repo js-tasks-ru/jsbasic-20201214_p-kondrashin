@@ -52,7 +52,7 @@ export default class Carousel {
       amountSlides = [...this.elements].length;
 
     let containerWidth = 0;
-      
+     
     leftArrow.style.display = 'none';
 
     function arrowOff (width) {
