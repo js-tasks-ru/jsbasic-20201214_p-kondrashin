@@ -40,7 +40,7 @@ export default class Modal {
   close() {
     document.body.classList.remove('is-modal-open');
     let modal = document.querySelector('.modal');
-    modal.remove();
+    if(modal) modal.remove();
   }
 
   setTitle(ModalTitle) {
@@ -60,10 +60,9 @@ export default class Modal {
   }
 
   escclose() {
-    let close = this.close;
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', (event) => {
       if(event.code != 'Escape') return
-      close 
+      this.close();
     })
   }
 }

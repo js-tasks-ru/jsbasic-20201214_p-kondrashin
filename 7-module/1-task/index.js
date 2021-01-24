@@ -29,62 +29,67 @@ function makeLayout(data) {
 export default class RibbonMenu {
   constructor(categories) {
     this.categories = categories;
-    this.elem = createElement(makeLayout(this.categories)); 
+    this.elem = createElement(makeLayout(this.categories));
+    this.initbuttons();
+    this.container = this.elem.querySelector('.ribbon__inner');
     this.items = this.elem.querySelectorAll('.ribbon__item');
-    this.initmenu();
-    this.addevent();
+    this.addevent();  
   }
 
-  initmenu() { 
+  buttonOff(right,left) {
+    let 
+      scrollLeftWidth = 0,
+      scrollRightWidth = 0;
+      
+    scrollLeftWidth = this.container.scrollLeft;
+    scrollRightWidth = this.container.scrollWidth - scrollLeftWidth - this.container.clientWidth;
+    
+    if (scrollRightWidth == 0) {
+      right.classList.remove('ribbon__arrow_visible');
+    }
+
+    if (scrollLeftWidth == 0 && scrollRightWidth > 0) {
+      left.classList.remove('ribbon__arrow_visible');
+    }
+    
+    if (scrollRightWidth > 0 && scrollLeftWidth > 0) {
+      left.classList.add('ribbon__arrow_visible');
+      right.classList.add('ribbon__arrow_visible');
+    }
+  }
+
+  slideMenu(count) {
+    this.container.scrollBy(count,0)
+  }
+
+  slideright() {
+    let counter = 0;
+    counter += 350;
+    this.slideMenu(counter);
+  }
+
+  slideleft() {
+    let counter = 0;
+    counter -= 350;
+    this.slideMenu(counter);
+  }
+
+  initbuttons() {
     const 
-      container = this.elem.querySelector('.ribbon__inner'),
       rightButton = this.elem.querySelector('.ribbon__arrow_right'),
       leftButton = this.elem.querySelector('.ribbon__arrow_left');
 
-    let 
-      counter = 0,
-      scrollLeftWidth = 0,
-      scrollRightWidth = 0;
-
-    function buttonOff() {
-      scrollLeftWidth = container.scrollLeft;
-      scrollRightWidth = container.scrollWidth - scrollLeftWidth - container.clientWidth;
-
-      if (scrollRightWidth == 0) {
-        rightButton.classList.remove('ribbon__arrow_visible');
-      }
-
-      if (scrollLeftWidth == 0 && scrollRightWidth > 0) {
-        leftButton.classList.remove('ribbon__arrow_visible');
-      }
-      
-      if (scrollRightWidth > 0 && scrollLeftWidth > 0) {
-        leftButton.classList.add('ribbon__arrow_visible');
-        rightButton.classList.add('ribbon__arrow_visible');
-      }
-  
-    }
-
-    function scrollMenu (count) {
-      buttonOff();
-      container.scrollBy(count,0)
-    }
-
-    function scrollRight() {
-      counter += 350;
-      scrollMenu(counter);
-      counter = 0;
-    }
-
-    function scrollleft() {
-      counter -= 350;
-      scrollMenu(counter);
-      counter = 0;
-    }
+    rightButton.addEventListener('click',(event) => {
+      this.slideright();
+      this.buttonOff(rightButton,leftButton);
+    });
     
-    rightButton.addEventListener('click', scrollRight);
-    leftButton.addEventListener('click', scrollleft);
+    leftButton.addEventListener('click',(event) => {
+      this.slideleft();
+      this.buttonOff(rightButton,leftButton);
+    });
   }
+
 
   addevent() {
     let 
