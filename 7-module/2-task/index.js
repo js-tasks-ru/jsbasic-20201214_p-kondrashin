@@ -60,9 +60,10 @@ export default class Modal {
   }
 
   escclose() {
+    let close = this.close;
     document.addEventListener('keydown', function(event) {
       if(event.code != 'Escape') return
-      console.log('esc');
+      close 
     })
   }
 }
