@@ -22,7 +22,8 @@ export default class StepSlider {
     this.value = value;
     this.elem = createElement(this.createsteps());
     this.changevalueslider(this.value);
-    this.initlistener();
+    this.listenerclick();
+    this.listenermove();
   }
 
   createsteps() {
@@ -41,7 +42,6 @@ export default class StepSlider {
       progress = this.elem.querySelector('.slider__progress');
       if(!valuePercents) valuePercents = value / (this.steps - 1) * 100;
     
-
     sliderValue.textContent = value;
      
     for(let elem of sliderSteps.children) {
@@ -53,44 +53,45 @@ export default class StepSlider {
     progress.style.width = `${valuePercents}%`;
   }
 
-  initlistener() {
+  calculateValue(left) {
     let 
-      elem = this.elem,
-      steps = this.steps,
-      thumb = this.elem.querySelector('.slider__thumb'),
-      self = this;
+      leftRelative = left / this.elem.offsetWidth,
+      approximateValue = leftRelative * (this.steps - 1),
+      value = Math.round(approximateValue);
 
-    function calculateValue (left) {
-      let 
-        leftRelative = left / elem.offsetWidth,
-        approximateValue = leftRelative * (steps - 1),
-        value = Math.round(approximateValue);
+    return value
+  }
 
-      return value
+  calculatePercent(left) {
+    let leftRelative = left / this.elem.offsetWidth;
+
+    if (leftRelative < 0) {
+      leftRelative = 0;
+    }
+      
+    if (leftRelative > 1) {
+      leftRelative = 1;
     }
 
-    function calculatePercent (left) {
-      let leftRelative = left / elem.offsetWidth;
+    let leftPercents = leftRelative * 100;
 
-      if (leftRelative < 0) {
-        leftRelative = 0;
-      }
-        
-      if (leftRelative > 1) {
-        leftRelative = 1;
-      }
+    return leftPercents   
+  }
 
-      let leftPercents = leftRelative * 100;
-
-      return leftPercents
-    }
+  listenerclick() {
 
     this.elem.addEventListener('click', (event) => {
-      let left = event.clientX - elem.getBoundingClientRect().left;
-      this.changevalueslider(calculateValue(left));
-      this.addevent(calculateValue(left));
+      let left = event.clientX - this.elem.getBoundingClientRect().left;
+      this.changevalueslider(this.calculateValue(left));
+      this.addevent(this.calculateValue(left));
     });
+  }
 
+  listenermove() {
+    let 
+      elem = this.elem,
+      self = this, 
+      thumb = this.elem.querySelector('.slider__thumb');
 
     thumb.onpointerdown = (event) => {
       event.preventDefault();
@@ -101,7 +102,7 @@ export default class StepSlider {
       function thumbMove(event) {
         let left = event.clientX - elem.getBoundingClientRect().left;
         elem.classList.add('slider_dragging');
-        self.changevalueslider(calculateValue(left),calculatePercent(left));
+        self.changevalueslider(self.calculateValue(left),self.calculatePercent(left));
       }
 
       function thumbMoveOff() {
@@ -110,8 +111,8 @@ export default class StepSlider {
         document.removeEventListener('pointerup', thumbMoveOff);
       }
     }
-
   }
+    
 
   addevent(value) {
     let event = new CustomEvent('slider-change', {detail: value, bubbles: true});
