@@ -61,22 +61,6 @@ export default class StepSlider {
     return value
   }
 
-  calculatePercent(left) {
-    let leftRelative = left / this.elem.offsetWidth;
-
-    if (leftRelative < 0) {
-      leftRelative = 0;
-    }
-      
-    if (leftRelative > 1) {
-      leftRelative = 1;
-    }
-
-    let leftPercents = leftRelative * 100;
-
-    return leftPercents   
-  }
-
   listenerclick() {
 
     this.elem.addEventListener('click', (event) => {
