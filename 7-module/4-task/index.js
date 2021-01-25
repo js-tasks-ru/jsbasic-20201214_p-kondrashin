@@ -49,8 +49,8 @@ export default class StepSlider {
     }
 
     sliderSteps.children[value].classList.add('slider__step-active');  
-    thumb.style.left = `${valuePercents}%`;
-    progress.style.width = `${valuePercents}%`;
+    thumb.style.left = `${valuePercents.toFixed(0)}%`;
+    progress.style.width = `${valuePercents.toFixed(0)}%`;
   }
 
   calculateValue(left) {
