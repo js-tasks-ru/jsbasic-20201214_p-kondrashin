@@ -33,12 +33,13 @@ export default class StepSlider {
     return steps
   }
   
-  changevalueslider(value,valuePercents) {
+  changevalueslider(value) {
     let 
       sliderValue = this.elem.querySelector('.slider__value'),
       sliderSteps = this.elem.querySelector('.slider__steps'),
       thumb = this.elem.querySelector('.slider__thumb'),
-      progress = this.elem.querySelector('.slider__progress');
+      progress = this.elem.querySelector('.slider__progress'),
+      valuePercents = value / (this.steps - 1) * 100;
 
     sliderValue.textContent = value;
      
@@ -49,7 +50,6 @@ export default class StepSlider {
     sliderSteps.children[value].classList.add('slider__step-active');  
 
     thumb.style.left = `${valuePercents}%`;
-
     progress.style.width = `${valuePercents}%`;
   }
 
@@ -58,11 +58,10 @@ export default class StepSlider {
       let 
         left = event.clientX - this.elem.getBoundingClientRect().left,
         leftRelative = left / this.elem.offsetWidth,
-        segments = this.steps - 1,
-        approximateValue = leftRelative * segments,
-        value = Math.round(approximateValue),
-        valuePercents = value / segments * 100;
-      this.changevalueslider(value, valuePercents);
+        approximateValue = leftRelative * (this.steps - 1),
+        value = Math.round(approximateValue);
+
+      this.changevalueslider(value);
       this.addevent(value);
     });
   }
