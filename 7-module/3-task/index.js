@@ -26,7 +26,7 @@ export default class StepSlider {
     this.value = value;
     this.elem = sliderTemplate(steps);
     this.changevalueslider(this.value);
-    this.listenerclick();
+    this.addEventListeners();
   }
 
   
@@ -57,14 +57,14 @@ export default class StepSlider {
 
     return value
   }
+  addEventListeners() {
+    this.elem.onclick = this.onClick;
+  }
 
-  listenerclick() {
-
-    this.elem.addEventListener('click', (event) => {
-      let left = event.clientX - this.elem.getBoundingClientRect().left;
-      this.changevalueslider(this.calculateValue(left));
-      this.addevent(this.calculateValue(left));
-    });
+  onClick = event => {
+    let left = event.clientX - this.elem.getBoundingClientRect().left;
+    this.changevalueslider(this.calculateValue(left));
+    this.addevent(this.calculateValue(left));
   }
  
   addevent(value) {
