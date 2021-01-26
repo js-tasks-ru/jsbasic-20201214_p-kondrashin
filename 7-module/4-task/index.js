@@ -10,7 +10,7 @@ function sliderTemplate(steps) {
   let div = document.createElement('div')
   div.innerHTML = `
     <div class="slider__thumb" style="left: 0%;">
-      <span class="slider__value">3</span>
+      <span class="slider__value">0</span>
     </div>
     <div class="slider__progress" style="width: 0%;"></div>
     <div class="slider__steps">
@@ -42,7 +42,7 @@ export default class StepSlider {
     for(let elem of sliderSteps.children) {
       elem.classList.remove('slider__step-active');
     }
-
+    
     sliderSteps.children[value].classList.add('slider__step-active');  
     this.thumb.style.left = `${valuePercents.toFixed(0)}%`;
     progress.style.width = `${valuePercents.toFixed(0)}%`;
@@ -54,7 +54,10 @@ export default class StepSlider {
       approximateValue = leftRelative * (this.steps - 1),
       value = Math.round(approximateValue);
 
-    return value
+      if (value < 0)  value = 0;
+      else if (value > this.steps-1) value = 4;
+
+      return value
   }
 
   calculatePercent(left) {
@@ -98,6 +101,7 @@ export default class StepSlider {
   }
 
   onPointerMove = event => {
+    
     let left = event.clientX - this.elem.getBoundingClientRect().left;
     this.changevalueslider(this.calculateValue(left),this.calculatePercent(left));
   }
