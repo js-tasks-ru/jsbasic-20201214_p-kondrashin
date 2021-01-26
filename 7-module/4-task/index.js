@@ -55,7 +55,7 @@ export default class StepSlider {
       value = Math.round(approximateValue);
 
       if (value < 0)  value = 0;
-      else if (value > this.steps-1) value = 4;
+      else if (value > this.steps-1) value = this.steps-1;
 
       return value
   }
