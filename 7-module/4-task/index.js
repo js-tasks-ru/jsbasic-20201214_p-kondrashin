@@ -1,16 +1,20 @@
-function createElement(spans) {
+function sliderTemplate(steps) {
+  function createsteps(amount) {
+    let steps = '';
+    for(let i = 0; i < amount; i++) {
+      steps+=`<span></span>`
+    }
+    return steps
+  } 
+
   let div = document.createElement('div')
   div.innerHTML = `
-  <!--Корневой элемент слайдера-->
-    <!--Ползунок слайдера с активным значением-->
     <div class="slider__thumb" style="left: 0%;">
       <span class="slider__value">3</span>
     </div>
-    <!--Заполненная часть слайдера-->
     <div class="slider__progress" style="width: 0%;"></div>
-    <!--Шаги слайдера-->
     <div class="slider__steps">
-      ${spans}
+      ${createsteps(steps)}
     </div>`
   div.classList.add('slider');
   return div
@@ -20,20 +24,12 @@ export default class StepSlider {
   constructor({steps, value = 0}) {
     this.steps = steps;
     this.value = value;
-    this.elem = createElement(this.createsteps());
+    this.elem = sliderTemplate(steps);
     this.changevalueslider(this.value);
     this.listenerclick();
     this.listenermove();
   }
-
-  createsteps() {
-    let steps = '';
-    for(let i = 0; i < this.steps; i++) {
-      steps+=`<span></span>`
-    }
-    return steps
-  }
-  
+ 
   changevalueslider(value,valuePercents) {
     let 
       sliderValue = this.elem.querySelector('.slider__value'),
