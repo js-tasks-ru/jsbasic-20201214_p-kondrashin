@@ -61,7 +61,6 @@ export default class CartIcon {
   }
 
   fixedPosition(leftIndent) {
-    console.log(this.elem)
     Object.assign(this.elem.style, {
       position: 'fixed',
       top: '50px',
