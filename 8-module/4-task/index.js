@@ -135,7 +135,7 @@ export default class Cart {
        if(event.target.closest('.cart-counter__button_plus')) this.updateProductCount(event.currentTarget.dataset.productId, +1)
 
       })
-    )
+    );
     this.cartForm = this.modal.elem.querySelector('.cart-form');
     
     this.cartForm.addEventListener('submit', (event) => this.onSubmit(event));
